@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        body {
+            background-color: #faf7f2;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            color: #4a4a4a;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .font-aesthetic {
+            font-family: 'Great Vibes', cursive;
+            color: #d4a373;
+        }
+        #cover {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #ffffff;
+            color: #4a4a4a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            transition: opacity 0.5s ease;
+        }
+        .btn-buka {
+            background-color: #d4a373;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #d4a373;
+            color: white;
+            border: none;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            cursor: pointer;
+        }
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid #d4a373;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* EFEK KELOPAK BUNGA */
+        .petal {
+            position: fixed;
+            top: -20px;
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.85), rgba(255, 105, 180, 0.65));
+            border-radius: 15px 0 15px 0;
+            box-shadow: 0 4px 8px rgba(212, 163, 115, 0.3);
+            pointer-events: none;
+            z-index: 9998;
+            animation: fall linear forwards, sway ease-in-out infinite alternate;
+        }
+
+        @keyframes fall {
+            0% { top: -20px; opacity: 0.9; }
+            100% { top: 105vh; opacity: 0.1; }
+        }
+
+        @keyframes sway {
+            0% { transform: translateX(0px) rotate(0deg); }
+            100% { transform: translateX(50px) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="assets/lagu.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="music-control" class="music-btn" onclick="toggleMusik()" style="display: none;">
+        <i id="music-icon" class="bi bi-disc fs-4"></i>
+    </button>
+
+    <div id="cover">
+        <p class="text-uppercase mb-2">The Wedding Of</p>
+        <h1 class="font-aesthetic display-1 mb-3">Rian & Siska</h1>
+        <p>Kepada Tamu Undangan</p>
+        <button class="btn-buka" onclick="bukaUndangan()">Buka Undangan</button>
+    </div>
+
+    <main id="main-content" style="display: none;">
+        <!-- BAGIAN MEMPELAI -->
+        <section class="py-5 container">
+            <h2 class="font-aesthetic display-3 mb-2">Pasangan Mempelai</h2>
+            <p class="text-muted mb-5">Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan.</p>
+
+            <div class="row align-items-center justify-content-center g-4">
+                <div class="col-md-5">
+                    <img src="assets/pria.jpg" alt="Rian" class="profile-img mb-3" onerror="this.src='https://via.placeholder.com/180?text=Pria'">
+                    <h3 class="font-aesthetic display-5 mb-1">Rian Pratama, S.Kom.</h3>
+                    <p class="text-muted mb-2">Putra dari Bpk. Budi & Ibu Ani</p>
+                    <a href="https://instagram.com" target="_blank" class="btn btn-outline-secondary btn-sm rounded-pill">
+                        <i class="bi bi-instagram me-1"></i>@rianpratama
+                    </a>
+                </div>
+
+                <div class="col-md-2 my-3">
+                    <h1 class="font-aesthetic text-danger display-3">&</h1>
+                </div>
+
+                <div class="col-md-5">
+                    <img src="assets/wanita.jpg" alt="Siska" class="profile-img mb-3" onerror="this.src='https://via.placeholder.com/180?text=Wanita'">
+                    <h3 class="font-aesthetic display-5 mb-1">Siska Lestari, S.Pd.</h3>
+                    <p class="text-muted mb-2">Putri dari Bpk. Joko & Ibu Siti</p>
+                    <a href="https://instagram.com" target="_blank" class="btn btn-outline-secondary btn-sm rounded-pill">
+                        <i class="bi bi-instagram me-1"></i>@siskalestari
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- BAGIAN ACARA & ALAMAT -->
+        <section class="py-5 bg-white text-center">
+            <div class="container">
+                <h2 class="font-aesthetic display-4 mb-4">Waktu & Tempat</h2>
+
+                <!-- Kartu Detail Alamat Acara -->
+                <div class="row justify-content-center g-4">
+                    <!-- Akad Nikah -->
+                    <div class="col-md-5">
+                        <div class="card h-100 border-0 shadow-sm p-4">
+                            <h3 class="font-aesthetic text-danger display-5">Akad Nikah</h3>
+                            <p class="fw-bold mb-1"><i class="bi bi-calendar-event me-2"></i>Minggu, 25 Desember 2026</p>
+                            <p class="text-muted"><i class="bi bi-clock me-2"></i>08.00 - 10.00 WIB</p>
+                            <hr>
+                            <p class="mb-3"><strong>Masjid Al-Ikhlas</strong><br>Jl. Merdeka No. 10, Jakarta Selatan</p>
+                            <a href="https://maps.google.com" target="_blank" class="btn btn-outline-danger rounded-pill mt-auto">
+                                <i class="bi bi-geo-alt me-1"></i>Buka Google Maps
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Resepsi -->
+                    <div class="col-md-5">
+                        <div class="card h-100 border-0 shadow-sm p-4">
+                            <h3 class="font-aesthetic text-danger display-5">Resepsi</h3>
+                            <p class="fw-bold mb-1"><i class="bi bi-calendar-event me-2"></i>Minggu, 25 Desember 2026</p>
+                            <p class="text-muted"><i class="bi bi-clock me-2"></i>11.00 - 14.00 WIB</p>
+                            <hr>
+                            <p class="mb-3"><strong>Gedung Serbaguna Grand Hall</strong><br>Jl. Sudirman No. 45, Jakarta Pusat</p>
+                            <a href="https://maps.google.com" target="_blank" class="btn btn-outline-danger rounded-pill mt-auto">
+                                <i class="bi bi-geo-alt me-1"></i>Buka Google Maps
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const music = document.getElementById('bg-music');
+        let isPlaying = false;
+
+        function bukaUndangan() {
+            const cover = document.getElementById('cover');
+            const main = document.getElementById('main-content');
+            const musicBtn = document.getElementById('music-control');
+
+            music.play().then(() => {
+                isPlaying = true;
+            }).catch(err => console.log(err));
+
+            musicBtn.style.display = 'flex';
+            cover.style.opacity = '0';
+            setTimeout(() => {
+                cover.style.display = 'none';
+                main.style.display = 'block';
+                mulaiEfekJatuh();
+            }, 500);
+        }
+
+        function toggleMusik() {
+            const icon = document.getElementById('music-icon');
+            if (isPlaying) {
+                music.pause();
+                icon.className = 'bi bi-pause-circle fs-4';
+            } else {
+                music.play();
+                icon.className = 'bi bi-disc fs-4';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function buatKelopak() {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            const size = Math.random() * 14 + 10;
+            petal.style.width = `${size}px`;
+            petal.style.height = `${size * 1.4}px`;
+            petal.style.left = `${Math.random() * 95}vw`;
+            const fallDuration = Math.random() * 5 + 5;
+            const swayDuration = Math.random() * 2 + 2;
+            petal.style.animationDuration = `${fallDuration}s, ${swayDuration}s`;
+            document.body.appendChild(petal);
+            setTimeout(() => { petal.remove(); }, fallDuration * 1000);
+        }
+
+        function mulaiEfekJatuh() {
+            setInterval(buatKelopak, 250);
+        }
+    </script>
+</body>
+</html>
